@@ -54,12 +54,7 @@ namespace WorkSchedule.Date
             return this;
         }
 
-        public Day(Day day)
-        {
-            indep = day.indep;
-            date = day.date;
-            last = day.last;
-        }
+        
 
         public Day(DateTime date, bool indep, bool last, List<WorkType> workTypes = null)
         {
@@ -72,6 +67,11 @@ namespace WorkSchedule.Date
             this.indep = indep;
             this.last = last;
 
+        }
+
+        public Day Clone()
+        {
+            return new Day(date, indep, last, workTypes);
         }
     }
 }

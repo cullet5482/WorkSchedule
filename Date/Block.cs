@@ -15,6 +15,21 @@ namespace WorkSchedule.Date
         private int week;
         private int dayworker;
 
+        public Day[] Days
+        {
+            get
+            {
+                return days.ToArray();
+            }
+        }
+        public bool FirstEmpty
+        {
+            get
+            {
+                return days[0].Empty;
+            }
+        }
+
         public int[] WorkCount { get
             {
                 var result = new int[] { 0, 0, 0 };
@@ -47,11 +62,10 @@ namespace WorkSchedule.Date
         
         public int Length { get { return days.Count; } }
 
-        public Block(Block block)
+        public Block Copy()
         {
-            days = block.days.Select(day => new Day(day)).ToList();
-            week = block.week;
-            dayworker = block.dayworker;
+            return new Block(days.Select(day => day.Clone()).ToList(), dayworker);
+            
         }
 
         public Block(List<Day> days, int dayworker)
@@ -73,7 +87,7 @@ namespace WorkSchedule.Date
 
         }
         public enum FillMethod { First = 0, Second = 1 };
-        public Block FillBlock(FillMethod method)
+        public Block Fill(FillMethod method)
         {
             Day latestDay = null;
             foreach(Day day in days)
@@ -175,10 +189,112 @@ namespace WorkSchedule.Date
                 return result;
             } }
 
+        public int Loss { get
+            {
+                int result = 0;
+                foreach(int count in WorkCount)
+                {
+                    result += Math.Abs(count);
+                }
+                return result;
+            } }
 
-        public Blocks(Blocks blocks)
+        
+        
+        public bool FirstEmptyAt(int idx)
         {
-            this.blocks = blocks.blocks.Select(block => new Block(block)).ToList();
+            return blocks[idx].FirstEmpty;
+        }
+
+        public Blocks Fill(int idx, Block.FillMethod method)
+        {
+            blocks[idx].Fill(method);
+            return this;
+        }
+
+        public Blocks(List<Block> blocks)
+        {
+            this.blocks = blocks;
+        }
+
+        public Blocks Clone()
+        {
+            return new Blocks(blocks.Select(block => block.Copy()).ToList());
+            
+        }
+
+        public (List<Blocks>, int, float) PermuteByBestWay()
+        {
+            ///permute 1번 진행시 Loss가 가장 낮은 Blocks들 중에서, 가장 좋은 Score를 기록한 Blocks들을 반환
+
+            float bestScore = float.MinValue;
+            List<Blocks> bestBlocks = new List<Blocks>();
+            int bestLoss = int.MaxValue;
+            var count = WorkCount;
+
+            for(int i=0; i<Length; i++)
+            {
+                var block = blocks[i];
+                if(block.FirstEmpty)
+                {
+                    continue;
+                }
+
+                var days = block.Days;
+                for(int j=0; j<days.Length; j++)
+                {
+                    var workTypes = days[j].WorkTypes;
+                    var negativeWorker = new List<int>();
+                    var positiveWorker = new List<int>();
+                    for(int k =0; k<workTypes.Length; k++)
+                    {
+                        if(count[k] < 0)
+                        {
+                            negativeWorker.Add(k);
+                        }else if(count[k] > 0)
+                        {
+                            positiveWorker.Add(k);
+                        }
+                    }
+                    foreach(int n in negativeWorker)
+                    {
+                        foreach(int p in positiveWorker)
+                        {
+                            if((int)workTypes[p] >= 0 && (int)workTypes[n] <= -1)
+                            {
+                                var tempBlocks = Clone();
+                                if(tempBlocks.blocks[i].PermuteWork(j, n, p))
+                                {
+                                    var loss = tempBlocks.Loss;
+                                    if (loss > bestLoss)
+                                    {
+                                        continue;
+                                    }else if(loss < bestLoss)
+                                    {
+                                        bestLoss = loss;
+                                        bestBlocks.Clear();
+                                        bestScore = float.MinValue;
+                                    }
+                                    var score = tempBlocks.Score;
+                                    if(score > bestScore)
+                                    {
+                                        bestScore = score;
+                                        bestBlocks.Clear();
+                                        bestBlocks.Add(tempBlocks);
+                                    }else if(score == bestScore)
+                                    {
+                                        bestBlocks.Add(tempBlocks);
+                                    }
+                                }
+                            }
+                        }
+                    }
+
+                }
+            }
+            (List<Blocks> blocks, int loss, float score) result = (bestBlocks, bestLoss, bestScore);
+            return result;
+
         }
 
     }
