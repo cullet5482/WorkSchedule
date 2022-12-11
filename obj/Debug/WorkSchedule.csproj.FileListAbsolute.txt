@@ -15,3 +15,4 @@ C:\Users\admin\source\repos\WorkSchedule\WorkSchedule\bin\Debug\MetroFramework.D
 C:\Users\admin\source\repos\WorkSchedule\WorkSchedule\bin\Debug\MetroFramework.dll
 C:\Users\admin\source\repos\WorkSchedule\WorkSchedule\bin\Debug\MetroFramework.Fonts.dll
 C:\Users\admin\source\repos\WorkSchedule\WorkSchedule\obj\Debug\WorkSchedule.WorkerSettingForm.resources
+C:\Users\admin\source\repos\WorkSchedule\WorkSchedule\obj\Debug\WorkSchedule.CreateForm.resources
