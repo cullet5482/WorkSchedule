@@ -7,23 +7,45 @@ using System.Threading.Tasks;
 namespace WorkSchedule.Date
 {
     
-
-
+    
+    [Serializable]
     public class Day
     {
         public enum WorkType { Day = 0, Dayoff = -1, Night = 1 }
         private List<WorkType> workTypes;
         private bool indep;
         private DateTime date;
-        private bool last;
+        private bool? last;
         private bool holiday;
 
         public bool Empty { get { return workTypes.Count <= 0; } }
+        public int Week { get { return date.GlobalWeek(); } }
         
-
+        public DateTime Date { get { return date; } }
         public WorkType[] WorkTypes { get { return workTypes.ToArray(); } }
         public bool Holyday { get { return holiday; } }
-        public bool Last { get { return last; } }
+        public bool Last { 
+            get { 
+                if(last == null)
+                {
+                    return false;
+                }
+                return (bool)last;
+            }
+            set
+            {
+                if(last == null)
+                {
+                    last = value;
+                }
+                else
+                {
+                    throw new Exception("The last must be allocated when it is null");
+                }
+            }
+        
+        
+        }
         public bool Indep { get { return indep; } }
 
 
@@ -56,7 +78,18 @@ namespace WorkSchedule.Date
 
         
 
-        public Day(DateTime date, bool indep, bool last, List<WorkType> workTypes = null)
+        public Day(DateTime date, bool indep, List<WorkType> workTypes = null)
+        {
+            if (workTypes == null)
+                this.workTypes = new List<WorkType>();
+            else
+                this.workTypes = workTypes;
+
+            this.date = date;
+            this.indep = indep;
+
+        }
+        private Day(DateTime date, bool indep, bool? last, List<WorkType> workTypes = null)
         {
             if (workTypes == null)
                 this.workTypes = new List<WorkType>();

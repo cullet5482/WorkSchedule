@@ -10,7 +10,7 @@ namespace WorkSchedule.Node
     public class Node
     {
         Blocks blocks;
-        List<Node> children;
+        List<Node> children = new List<Node>();
 
         int Loss
         {

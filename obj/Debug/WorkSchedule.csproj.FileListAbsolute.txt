@@ -1,0 +1,17 @@
+C:\Users\admin\source\repos\WorkSchedule\WorkSchedule\bin\Debug\WorkSchedule.exe.config
+C:\Users\admin\source\repos\WorkSchedule\WorkSchedule\bin\Debug\WorkSchedule.exe
+C:\Users\admin\source\repos\WorkSchedule\WorkSchedule\bin\Debug\WorkSchedule.pdb
+C:\Users\admin\source\repos\WorkSchedule\WorkSchedule\obj\Debug\WorkSchedule.csproj.AssemblyReference.cache
+C:\Users\admin\source\repos\WorkSchedule\WorkSchedule\obj\Debug\WorkSchedule.csproj.SuggestedBindingRedirects.cache
+C:\Users\admin\source\repos\WorkSchedule\WorkSchedule\obj\Debug\WorkSchedule.Properties.Resources.resources
+C:\Users\admin\source\repos\WorkSchedule\WorkSchedule\obj\Debug\WorkSchedule.csproj.GenerateResource.cache
+C:\Users\admin\source\repos\WorkSchedule\WorkSchedule\obj\Debug\WorkSchedule.csproj.CoreCompileInputs.cache
+C:\Users\admin\source\repos\WorkSchedule\WorkSchedule\obj\Debug\WorkSchedule.exe
+C:\Users\admin\source\repos\WorkSchedule\WorkSchedule\obj\Debug\WorkSchedule.pdb
+C:\Users\admin\source\repos\WorkSchedule\WorkSchedule\bin\Debug\Newtonsoft.Json.dll
+C:\Users\admin\source\repos\WorkSchedule\WorkSchedule\bin\Debug\Newtonsoft.Json.xml
+C:\Users\admin\source\repos\WorkSchedule\WorkSchedule\obj\Debug\WorkSchedule.MainForm.resources
+C:\Users\admin\source\repos\WorkSchedule\WorkSchedule\bin\Debug\MetroFramework.Design.dll
+C:\Users\admin\source\repos\WorkSchedule\WorkSchedule\bin\Debug\MetroFramework.dll
+C:\Users\admin\source\repos\WorkSchedule\WorkSchedule\bin\Debug\MetroFramework.Fonts.dll
+C:\Users\admin\source\repos\WorkSchedule\WorkSchedule\obj\Debug\WorkSchedule.WorkerSettingForm.resources

@@ -7,13 +7,17 @@ using System.Linq.Expressions;
 
 namespace WorkSchedule.Date
 {
-    
+    [Serializable]
     public class Block
     {
         
         private List<Day> days;
-        private int week;
         private int dayworker;
+
+        public int Week { get
+            {
+                return days[0].Week;
+            } }
 
         public Day[] Days
         {
@@ -64,14 +68,15 @@ namespace WorkSchedule.Date
 
         public Block Copy()
         {
-            return new Block(days.Select(day => day.Clone()).ToList(), dayworker);
+            return new Block(days.Select(day => day.Clone()).ToList());
             
         }
 
-        public Block(List<Day> days, int dayworker)
+        public Block(List<Day> days)
         {
             this.days = days;
-            this.dayworker = dayworker;
+            dayworker = WorkerDataManager.GetDayWorker(Week);
+
         }
 
         public bool PermuteWork(int idx, int a, int b)
@@ -158,6 +163,7 @@ namespace WorkSchedule.Date
 
     }
 
+    [Serializable]
     public class Blocks
     {
         private List<Block> blocks;
