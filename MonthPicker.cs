@@ -16,6 +16,7 @@ namespace WorkSchedule
         // initialize Format/CustomFormat to display only month and year.
         public MonthPicker()
         {
+            
             Format = DateTimePickerFormat.Custom;
             CustomFormat = "MMMM yyyy";
         }

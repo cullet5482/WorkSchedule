@@ -24,6 +24,7 @@ namespace WorkSchedule
             workerLabel1.Text = WorkerDataManager.GetWorkerName(0);
             workerLabel2.Text = WorkerDataManager.GetWorkerName(1);
             workerLabel3.Text = WorkerDataManager.GetWorkerName(2);
+            monthPicker.Value = new DateTime(ScheduleManager.Instance.Year, ScheduleManager.Instance.Month, 1);
 
         }
 

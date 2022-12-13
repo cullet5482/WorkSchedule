@@ -16,3 +16,4 @@ C:\Users\admin\source\repos\WorkSchedule\WorkSchedule\bin\Debug\MetroFramework.d
 C:\Users\admin\source\repos\WorkSchedule\WorkSchedule\bin\Debug\MetroFramework.Fonts.dll
 C:\Users\admin\source\repos\WorkSchedule\WorkSchedule\obj\Debug\WorkSchedule.WorkerSettingForm.resources
 C:\Users\admin\source\repos\WorkSchedule\WorkSchedule\obj\Debug\WorkSchedule.CreateForm.resources
+C:\Users\admin\source\repos\WorkSchedule\WorkSchedule\obj\Debug\WorkSchedule.HolidayAddForm.resources

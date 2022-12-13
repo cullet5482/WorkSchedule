@@ -52,15 +52,30 @@ namespace WorkSchedule
             firstDay = new DateTime(SM.Year, SM.Month, 1);
             firstDayofWeek = (int)firstDay.DayOfWeek;
             holidayInfo = SM.HolidayInfo;
+            SM.holidayChange += HolidayChanged;
             Clear();
         }
 
+        public void HolidayChanged(object sender, EventArgs e)
+        {
+            Clear();
+        }
         private int DateToIdx(DateTime date)
         {
+            if(firstDayofWeek == 6)
+            {
+                return (date - firstDay).Days - 1;
+            }
+
             return (date - firstDay).Days + firstDayofWeek;
         }
         private DateTime IdxToDate(int idx)
         { // idx = dayOfWeek + firstDay - Date => Date = dayOfweek + firstDay - idx
+            if(firstDayofWeek == 6)
+            {
+                return firstDay + new TimeSpan(idx + 1, 0, 0, 0);
+            }
+
             return firstDay + new TimeSpan(idx - firstDayofWeek, 0, 0, 0);
         }
 
@@ -104,14 +119,11 @@ namespace WorkSchedule
                 flattenDayForms[i].SetDateLabel(date, SM.Month);
 
             }
-
+            BlocksListView.Clear();
             return this;
         }
 
-        private void MainForm_Load(object sender, EventArgs e)
-        {
-
-        }
+        
 
         private void metroButton1_Click(object sender, EventArgs e)
         {
@@ -128,8 +140,13 @@ namespace WorkSchedule
             var workerSettingForm = new CreateForm();
             if (workerSettingForm.ShowDialog() == DialogResult.OK)
             {
-                ScheduleManager.Initialize(workerSettingForm.Year, workerSettingForm.Month, null);
+                if((SM.Month != workerSettingForm.Month || SM.Year != workerSettingForm.Year) || SM == null)
+                {
+                    ScheduleManager.Initialize(workerSettingForm.Year, workerSettingForm.Month, null);
+                }
+           
                 SM = ScheduleManager.Instance;
+                SM.holidayChange += HolidayChanged;
                 firstDay = new DateTime(SM.Year, SM.Month, 1);
                 firstDayofWeek = (int)firstDay.DayOfWeek;
                 holidayInfo = SM.HolidayInfo;
@@ -146,6 +163,13 @@ namespace WorkSchedule
                 {
                     BlocksListView.Items[0].Selected = true;
                 }
+                ShowSchedule(0);
+                
+                if(SM.BestBlockList[0].Loss > 0)
+                {
+                    MessageBox.Show("");
+                }
+
 
             }
             workerSettingForm.Dispose();

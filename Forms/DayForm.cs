@@ -14,7 +14,8 @@ namespace WorkSchedule.Forms
         Label dateLabel;
         Label workLabel;
         TableLayoutPanel tableLayoutPanel;
-
+        DateTime date;
+        string holidayName = "";
         
         public DayForm(TableLayoutPanel calendarLP, int i, int j)
         {
@@ -40,7 +41,19 @@ namespace WorkSchedule.Forms
 
             
             dateLabel.Font = new System.Drawing.Font(dateLabel.Font, System.Drawing.FontStyle.Bold);
+
+            dateLabel.Click += DayForm_Click;
             
+        }
+
+        private void DayForm_Click(object sender, EventArgs e)
+        {
+            var holidayAddForm = new HolidayAddForm(date, holidayName, holidayName);
+            if (holidayAddForm.ShowDialog() == DialogResult.OK)
+            {
+                ScheduleManager.AddHoliday(holidayAddForm.Name, date);
+            }
+            holidayAddForm.Dispose();
         }
 
         public DayForm Clear()
@@ -53,6 +66,7 @@ namespace WorkSchedule.Forms
         }
         public DayForm SetHoliday(string name)
         {
+            holidayName = name;
             tableLayoutPanel.BackColor = System.Drawing.Color.Yellow;
 
             dateLabel.ForeColor = System.Drawing.Color.Red;
@@ -99,6 +113,7 @@ namespace WorkSchedule.Forms
 
         public DayForm SetDateLabel(DateTime Date, int month)
         {
+            date = Date;
             if(Date.Month == month)
             {
                 dateLabel.Text = Date.Day.ToString();

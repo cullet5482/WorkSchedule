@@ -21,7 +21,7 @@ namespace WorkSchedule
                 if (count <= 0)
                     return float.MaxValue;
                 else
-                    return this.Max(b => b.Score);
+                    return this[0].Score;
 
             }
         }
@@ -35,7 +35,7 @@ namespace WorkSchedule
                     return float.MinValue;
                 }
                 else
-                    return this.Min(b => b.Score);
+                    return this[Count-1].Score;
             }
         }
         
@@ -84,6 +84,8 @@ namespace WorkSchedule
             }
             
             base.Add(blocks);
+            Sort((x, y) => y.Score.CompareTo(x.Score));
+            
             return this;
             
             

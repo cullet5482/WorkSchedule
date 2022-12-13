@@ -17,6 +17,9 @@ namespace WorkSchedule
     [Serializable]
     public class ScheduleManager
     {
+        public event EventHandler holidayChange;
+
+
         Blocks blocks = null;
         public BestBlockList BestBlockList { private set; get; }
         List<(DateTime date, string name)> holidayInfo = null;
@@ -161,6 +164,7 @@ namespace WorkSchedule
 
         public static ScheduleManager Initialize(int year, int month, List<(DateTime date, string name)> holidayInfo = null)
         {
+            
             scheduleManager = new ScheduleManager();
 
             if(holidayInfo == null)
@@ -220,6 +224,45 @@ namespace WorkSchedule
 
             blockList.Reverse();
             Instance.blocks = new Blocks(blockList);
+            return Instance;
+        }
+
+        public static ScheduleManager AddHoliday(string name, DateTime date)
+        {
+            
+            var blocks = Instance.blocks;
+            var blockIdx = -1;
+            var dayIdx = -1;
+            for(int i = 0; (i < blocks.Length) && (blockIdx == -1) && (dayIdx == -1); i++)
+            {
+                var block = blocks.GetBlock(i);
+                for (int j = 0; j < block.Length; j++)
+                {
+                    
+                    if(block.Days[j].Date == date)
+                    {
+                        blockIdx = i;
+                        dayIdx = j;
+                        break;
+                    }
+                }
+            }
+
+            if(Instance.HolidayInfo.Any(x => x.date == date))
+            {
+                Instance.HolidayInfo.RemoveAll(x => x.date == date);
+                Instance.HolidayInfo.Add((date, name));
+                Instance.holidayChange(Instance, EventArgs.Empty);
+            }
+            else
+            {
+                blocks.SplitBlock(blockIdx, dayIdx);
+                Instance.blocks = blocks;
+                Instance.HolidayInfo.Add((date, name));
+                Instance.holidayChange(Instance, EventArgs.Empty);
+            }
+            
+            
             return Instance;
         }
 

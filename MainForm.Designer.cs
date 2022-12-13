@@ -261,7 +261,6 @@
             this.Name = "MainForm";
             this.Resizable = false;
             this.Text = "근무표 생성기";
-            this.Load += new System.EventHandler(this.MainForm_Load);
             this.calendarLayoutPanel.ResumeLayout(false);
             this.calendarLayoutPanel.PerformLayout();
             this.ResumeLayout(false);

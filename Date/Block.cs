@@ -57,7 +57,9 @@ namespace WorkSchedule.Date
                     for(int i = 0; i < day.WorkTypes.Length;i++)
                     {
                         if (i == dayworker && day.WorkTypes[dayworker] == Day.WorkType.Day) result += 1.0f;
-                        if (i != dayworker && day.WorkTypes[i] == Day.WorkType.Night) result += 1.0f;
+                        else if (i != dayworker && day.WorkTypes[i] == Day.WorkType.Night) result += 1.0f;
+                        else if (day.Last) result += 0.5f;
+                        
 
                     }
                 }
@@ -95,7 +97,18 @@ namespace WorkSchedule.Date
                     rightDays.Add(day);
                 }
             }
-            return new Block[] {new Block(leftDays), new Block(rightDays)};
+            var result = new List<Block>();
+            if (rightDays.Count > 0)
+            {
+                result.Add(new Block(rightDays));
+            }
+            if (leftDays.Count > 0)
+            {
+                result.Add(new Block(leftDays));
+            }
+            
+
+            return result.ToArray();
         }
         public bool PermuteWork(int idx, int a, int b)
         {
@@ -205,11 +218,18 @@ namespace WorkSchedule.Date
     {
         private List<Block> blocks;
 
+        
 
         public void SplitBlock(int blockIdx, int dayIdx)
         {
             var targetBlock = blocks[blockIdx];
             blocks.RemoveAt(blockIdx);
+            var splitedBlocks = targetBlock.Split(dayIdx);
+            foreach(var splitedBlock in splitedBlocks)
+            {
+                if(splitedBlock.Length > 0)
+                    blocks.Insert(blockIdx, splitedBlock);
+            }
             
         }
 
@@ -283,6 +303,12 @@ namespace WorkSchedule.Date
                 }
                 return result;
             } }
+
+        public Block GetBlock(int idx)
+        {
+            return blocks[idx].Copy();
+        }
+            
 
 
         public Blocks SetFirstDay(int idx, Day.WorkType[] workTypes)
