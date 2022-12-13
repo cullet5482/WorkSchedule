@@ -28,6 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.Windows.Forms.ListViewItem listViewItem1 = new System.Windows.Forms.ListViewItem(new string[] {
+            "hello"}, -1, System.Drawing.Color.Empty, System.Drawing.Color.Empty, new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0))));
             this.calendarLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
             this.label5 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
@@ -39,7 +41,7 @@
             this.metroButton1 = new MetroFramework.Controls.MetroButton();
             this.metroButton2 = new MetroFramework.Controls.MetroButton();
             this.metroButton3 = new MetroFramework.Controls.MetroButton();
-            this.metroListView1 = new MetroFramework.Controls.MetroListView();
+            this.BlocksListView = new MetroFramework.Controls.MetroListView();
             this.calendarLayoutPanel.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -207,6 +209,7 @@
             this.metroButton2.TabIndex = 9;
             this.metroButton2.Text = "근무표 생성";
             this.metroButton2.UseSelectable = true;
+            this.metroButton2.Click += new System.EventHandler(this.metroButton2_Click);
             // 
             // metroButton3
             // 
@@ -220,17 +223,25 @@
             this.metroButton3.Text = "엑셀로 저장";
             this.metroButton3.UseSelectable = true;
             // 
-            // metroListView1
+            // BlocksListView
             // 
-            this.metroListView1.Font = new System.Drawing.Font("Segoe UI", 12F);
-            this.metroListView1.FullRowSelect = true;
-            this.metroListView1.Location = new System.Drawing.Point(1181, 80);
-            this.metroListView1.Name = "metroListView1";
-            this.metroListView1.OwnerDraw = true;
-            this.metroListView1.Size = new System.Drawing.Size(173, 505);
-            this.metroListView1.TabIndex = 11;
-            this.metroListView1.UseCompatibleStateImageBehavior = false;
-            this.metroListView1.UseSelectable = true;
+            this.BlocksListView.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.BlocksListView.Font = new System.Drawing.Font("Segoe UI", 12F);
+            this.BlocksListView.FullRowSelect = true;
+            this.BlocksListView.Items.AddRange(new System.Windows.Forms.ListViewItem[] {
+            listViewItem1});
+            this.BlocksListView.Location = new System.Drawing.Point(1181, 80);
+            this.BlocksListView.Name = "BlocksListView";
+            this.BlocksListView.OwnerDraw = true;
+            this.BlocksListView.Scrollable = false;
+            this.BlocksListView.Size = new System.Drawing.Size(173, 505);
+            this.BlocksListView.TabIndex = 11;
+            this.BlocksListView.UseCompatibleStateImageBehavior = false;
+            this.BlocksListView.UseSelectable = true;
+            this.BlocksListView.View = System.Windows.Forms.View.List;
+            this.BlocksListView.ItemActivate += new System.EventHandler(this.BlocksListView_ItemActivate);
             // 
             // MainForm
             // 
@@ -239,7 +250,7 @@
             this.AutoSize = true;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.ClientSize = new System.Drawing.Size(1360, 730);
-            this.Controls.Add(this.metroListView1);
+            this.Controls.Add(this.BlocksListView);
             this.Controls.Add(this.metroButton3);
             this.Controls.Add(this.metroButton2);
             this.Controls.Add(this.metroButton1);
@@ -270,7 +281,7 @@
         private MetroFramework.Controls.MetroButton metroButton1;
         private MetroFramework.Controls.MetroButton metroButton2;
         private MetroFramework.Controls.MetroButton metroButton3;
-        private MetroFramework.Controls.MetroListView metroListView1;
+        private MetroFramework.Controls.MetroListView BlocksListView;
     }
 }
 

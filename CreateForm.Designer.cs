@@ -35,12 +35,12 @@
             this.metroRadioButton1 = new MetroFramework.Controls.MetroRadioButton();
             this.metroRadioButton2 = new MetroFramework.Controls.MetroRadioButton();
             this.metroRadioButton3 = new MetroFramework.Controls.MetroRadioButton();
-            this.metroLabel3 = new MetroFramework.Controls.MetroLabel();
-            this.metroLabel4 = new MetroFramework.Controls.MetroLabel();
-            this.metroLabel5 = new MetroFramework.Controls.MetroLabel();
+            this.workerLabel1 = new MetroFramework.Controls.MetroLabel();
+            this.workerLabel2 = new MetroFramework.Controls.MetroLabel();
+            this.workerLabel3 = new MetroFramework.Controls.MetroLabel();
             this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
-            this.monthPicker1 = new WorkSchedule.MonthPicker();
-            this.metroButton1 = new MetroFramework.Controls.MetroButton();
+            this.okButton = new MetroFramework.Controls.MetroButton();
+            this.monthPicker = new WorkSchedule.MonthPicker();
             this.tableLayoutPanel1.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
             this.tableLayoutPanel3.SuspendLayout();
@@ -74,9 +74,9 @@
             this.tableLayoutPanel2.Controls.Add(this.metroRadioButton1, 1, 1);
             this.tableLayoutPanel2.Controls.Add(this.metroRadioButton2, 1, 2);
             this.tableLayoutPanel2.Controls.Add(this.metroRadioButton3, 1, 3);
-            this.tableLayoutPanel2.Controls.Add(this.metroLabel3, 0, 1);
-            this.tableLayoutPanel2.Controls.Add(this.metroLabel4, 0, 2);
-            this.tableLayoutPanel2.Controls.Add(this.metroLabel5, 0, 3);
+            this.tableLayoutPanel2.Controls.Add(this.workerLabel1, 0, 1);
+            this.tableLayoutPanel2.Controls.Add(this.workerLabel2, 0, 2);
+            this.tableLayoutPanel2.Controls.Add(this.workerLabel3, 0, 3);
             this.tableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel2.Location = new System.Drawing.Point(4, 4);
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
@@ -115,10 +115,12 @@
             this.metroRadioButton1.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.metroRadioButton1.AutoSize = true;
             this.metroRadioButton1.CheckAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.metroRadioButton1.Checked = true;
             this.metroRadioButton1.Location = new System.Drawing.Point(380, 48);
             this.metroRadioButton1.Name = "metroRadioButton1";
             this.metroRadioButton1.Size = new System.Drawing.Size(47, 15);
             this.metroRadioButton1.TabIndex = 2;
+            this.metroRadioButton1.TabStop = true;
             this.metroRadioButton1.Text = "대체";
             this.metroRadioButton1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.metroRadioButton1.UseSelectable = true;
@@ -149,38 +151,38 @@
             this.metroRadioButton3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.metroRadioButton3.UseSelectable = true;
             // 
-            // metroLabel3
+            // workerLabel1
             // 
-            this.metroLabel3.AutoSize = true;
-            this.metroLabel3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.metroLabel3.Location = new System.Drawing.Point(4, 34);
-            this.metroLabel3.Name = "metroLabel3";
-            this.metroLabel3.Size = new System.Drawing.Size(325, 43);
-            this.metroLabel3.TabIndex = 5;
-            this.metroLabel3.Text = "metroLabel3";
-            this.metroLabel3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.workerLabel1.AutoSize = true;
+            this.workerLabel1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.workerLabel1.Location = new System.Drawing.Point(4, 34);
+            this.workerLabel1.Name = "workerLabel1";
+            this.workerLabel1.Size = new System.Drawing.Size(325, 43);
+            this.workerLabel1.TabIndex = 5;
+            this.workerLabel1.Text = "metroLabel3";
+            this.workerLabel1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // metroLabel4
+            // workerLabel2
             // 
-            this.metroLabel4.AutoSize = true;
-            this.metroLabel4.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.metroLabel4.Location = new System.Drawing.Point(4, 78);
-            this.metroLabel4.Name = "metroLabel4";
-            this.metroLabel4.Size = new System.Drawing.Size(325, 43);
-            this.metroLabel4.TabIndex = 6;
-            this.metroLabel4.Text = "metroLabel4";
-            this.metroLabel4.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.workerLabel2.AutoSize = true;
+            this.workerLabel2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.workerLabel2.Location = new System.Drawing.Point(4, 78);
+            this.workerLabel2.Name = "workerLabel2";
+            this.workerLabel2.Size = new System.Drawing.Size(325, 43);
+            this.workerLabel2.TabIndex = 6;
+            this.workerLabel2.Text = "metroLabel4";
+            this.workerLabel2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // metroLabel5
+            // workerLabel3
             // 
-            this.metroLabel5.AutoSize = true;
-            this.metroLabel5.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.metroLabel5.Location = new System.Drawing.Point(4, 122);
-            this.metroLabel5.Name = "metroLabel5";
-            this.metroLabel5.Size = new System.Drawing.Size(325, 45);
-            this.metroLabel5.TabIndex = 7;
-            this.metroLabel5.Text = "metroLabel5";
-            this.metroLabel5.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.workerLabel3.AutoSize = true;
+            this.workerLabel3.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.workerLabel3.Location = new System.Drawing.Point(4, 122);
+            this.workerLabel3.Name = "workerLabel3";
+            this.workerLabel3.Size = new System.Drawing.Size(325, 45);
+            this.workerLabel3.TabIndex = 7;
+            this.workerLabel3.Text = "metroLabel5";
+            this.workerLabel3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // tableLayoutPanel3
             // 
@@ -188,8 +190,8 @@
             this.tableLayoutPanel3.ColumnCount = 2;
             this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 70F));
             this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 30F));
-            this.tableLayoutPanel3.Controls.Add(this.metroButton1, 1, 0);
-            this.tableLayoutPanel3.Controls.Add(this.monthPicker1, 0, 0);
+            this.tableLayoutPanel3.Controls.Add(this.okButton, 1, 0);
+            this.tableLayoutPanel3.Controls.Add(this.monthPicker, 0, 0);
             this.tableLayoutPanel3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel3.Location = new System.Drawing.Point(4, 179);
             this.tableLayoutPanel3.Name = "tableLayoutPanel3";
@@ -199,26 +201,27 @@
             this.tableLayoutPanel3.TabIndex = 1;
             this.tableLayoutPanel3.Paint += new System.Windows.Forms.PaintEventHandler(this.tableLayoutPanel3_Paint);
             // 
-            // monthPicker1
+            // okButton
             // 
-            this.monthPicker1.CustomFormat = "yyyy MMMM";
-            this.monthPicker1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.monthPicker1.Location = new System.Drawing.Point(31, 31);
-            this.monthPicker1.Margin = new System.Windows.Forms.Padding(30);
-            this.monthPicker1.MinDate = new System.DateTime(1970, 1, 1, 0, 0, 0, 0);
-            this.monthPicker1.Name = "monthPicker1";
-            this.monthPicker1.Size = new System.Drawing.Size(271, 21);
-            this.monthPicker1.TabIndex = 0;
+            this.okButton.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.okButton.Location = new System.Drawing.Point(366, 29);
+            this.okButton.Name = "okButton";
+            this.okButton.Size = new System.Drawing.Size(75, 23);
+            this.okButton.TabIndex = 1;
+            this.okButton.Text = "확인";
+            this.okButton.UseSelectable = true;
+            this.okButton.Click += new System.EventHandler(this.okButton_Click);
             // 
-            // metroButton1
+            // monthPicker
             // 
-            this.metroButton1.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.metroButton1.Location = new System.Drawing.Point(366, 29);
-            this.metroButton1.Name = "metroButton1";
-            this.metroButton1.Size = new System.Drawing.Size(75, 23);
-            this.metroButton1.TabIndex = 1;
-            this.metroButton1.Text = "확인";
-            this.metroButton1.UseSelectable = true;
+            this.monthPicker.CustomFormat = "yyyy MMMM";
+            this.monthPicker.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.monthPicker.Location = new System.Drawing.Point(31, 31);
+            this.monthPicker.Margin = new System.Windows.Forms.Padding(30);
+            this.monthPicker.MinDate = new System.DateTime(1970, 1, 1, 0, 0, 0, 0);
+            this.monthPicker.Name = "monthPicker";
+            this.monthPicker.Size = new System.Drawing.Size(271, 21);
+            this.monthPicker.TabIndex = 0;
             // 
             // CreateForm
             // 
@@ -247,11 +250,11 @@
         private MetroFramework.Controls.MetroRadioButton metroRadioButton1;
         private MetroFramework.Controls.MetroRadioButton metroRadioButton2;
         private MetroFramework.Controls.MetroRadioButton metroRadioButton3;
-        private MetroFramework.Controls.MetroLabel metroLabel3;
-        private MetroFramework.Controls.MetroLabel metroLabel4;
-        private MetroFramework.Controls.MetroLabel metroLabel5;
+        private MetroFramework.Controls.MetroLabel workerLabel1;
+        private MetroFramework.Controls.MetroLabel workerLabel2;
+        private MetroFramework.Controls.MetroLabel workerLabel3;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel3;
-        private MonthPicker monthPicker1;
-        private MetroFramework.Controls.MetroButton metroButton1;
+        private MonthPicker monthPicker;
+        private MetroFramework.Controls.MetroButton okButton;
     }
 }

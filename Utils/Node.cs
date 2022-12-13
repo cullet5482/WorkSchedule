@@ -5,11 +5,12 @@ using System.Text;
 using System.Threading.Tasks;
 using WorkSchedule.Date;
 
-namespace WorkSchedule.Node
+namespace WorkSchedule
 {
     public class Node
     {
         Blocks blocks;
+        public Blocks Blocks { get { return blocks; } }
         List<Node> children = new List<Node>();
 
         int Loss
@@ -68,7 +69,7 @@ namespace WorkSchedule.Node
                 return;
             }
 
-            if(node.blocks.FirstEmptyAt(depth))
+            if(!node.blocks.FirstEmptyAt(depth))
             {
                 var filledNode = node.Copy();
                 node.AddChild(FillNode(filledNode, depth));
@@ -78,8 +79,11 @@ namespace WorkSchedule.Node
             {
                 var leftNode = node.Copy();
                 var rightNode = node.Copy();
-                node.AddChild(FillNode(leftNode, depth, Block.FillMethod.First));
-                node.AddChild(FillNode(rightNode, depth, Block.FillMethod.Second));
+                FillNode(leftNode, depth, Block.FillMethod.First);
+                FillNode(rightNode, depth, Block.FillMethod.Second);
+
+                node.AddChild(leftNode);
+                node.AddChild(rightNode);
                 WaterTree(leftNode, bestNode, ref minLoss, depth+1);
                 WaterTree(rightNode, bestNode, ref minLoss, depth + 1);
             }

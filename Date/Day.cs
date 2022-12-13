@@ -21,6 +21,17 @@ namespace WorkSchedule.Date
         public bool Empty { get { return workTypes.Count <= 0; } }
         public int Week { get { return date.GlobalWeek(); } }
         
+        public static bool Eqaul(Day a, Day b)
+        {
+            
+            if (a.workTypes.Count != b.workTypes.Count) return false;
+            for (int i = 0; i < a.workTypes.Count; i++)
+            {
+                if (a.workTypes[i] != b.workTypes[i]) return false;
+            }
+            return (a.indep == b.indep) && (a.date == b.date) && (a.last == b.last) && (a.holiday == b.holiday);
+        }
+        
         public DateTime Date { get { return date; } }
         public WorkType[] WorkTypes { get { return workTypes.ToArray(); } }
         public bool Holyday { get { return holiday; } }
@@ -51,7 +62,7 @@ namespace WorkSchedule.Date
 
         public Day Append(WorkType workType)
         {
-            if(workTypes.Count >= 3)
+            if(workTypes.Count > 3)
             {
                 throw new Exception("The length of workTypes is must be less than 3");
             }
@@ -104,7 +115,7 @@ namespace WorkSchedule.Date
 
         public Day Clone()
         {
-            return new Day(date, indep, last, workTypes);
+            return new Day(new DateTime(date.Year, date.Month, date.Day), indep, last, workTypes.ToList());
         }
     }
 }

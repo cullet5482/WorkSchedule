@@ -45,6 +45,10 @@ namespace WorkSchedule.Forms
 
         public DayForm Clear()
         {
+            workLabel.Text = "";
+            workLabel.Font = new System.Drawing.Font(workLabel.Font, System.Drawing.FontStyle.Regular);
+            tableLayoutPanel.BackColor = System.Drawing.Color.White;
+            dateLabel.ForeColor = System.Drawing.Color.Black;
             return this;
         }
         public DayForm SetHoliday(string name)

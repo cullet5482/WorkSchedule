@@ -75,7 +75,8 @@
     </Compile>
     <Compile Include="Forms\DayForm.cs" />
     <Compile Include="GlobalWeek.cs" />
-    <Compile Include="Node\Node.cs" />
+    <Compile Include="Utils\BestBlockList.cs" />
+    <Compile Include="Utils\Node.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ScheduleManager.cs" />

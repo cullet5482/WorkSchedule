@@ -10,8 +10,8 @@ namespace WorkSchedule
     {
         public static int GlobalWeek(this DateTime date)
         {
-            int milisecond = (int)date.ToUniversalTime().Subtract(new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc)).TotalMilliseconds;
-            int week = milisecond / (24 * 60 * 60 * 1000 * 7);
+            long milisecond = (long)date.ToUniversalTime().Subtract(new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc)).TotalMilliseconds;
+            int week = (int)(milisecond / (24 * 60 * 60 * 1000 * 7));
             return week;
         }
     }

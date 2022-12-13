@@ -16,7 +16,7 @@ namespace WorkSchedule
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new CreateForm());
+            Application.Run(new MainForm());
         }
     }
 }

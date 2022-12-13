@@ -20,6 +20,7 @@ namespace WorkSchedule
         ScheduleManager SM;
         DateTime firstDay;
         int firstDayofWeek;
+
         List<(DateTime date, string name)> holidayInfo;
 
         public MainForm()
@@ -56,7 +57,7 @@ namespace WorkSchedule
 
         private int DateToIdx(DateTime date)
         {
-            return (firstDay - date).Days + firstDayofWeek;
+            return (date - firstDay).Days + firstDayofWeek;
         }
         private DateTime IdxToDate(int idx)
         { // idx = dayOfWeek + firstDay - Date => Date = dayOfweek + firstDay - idx
@@ -88,7 +89,7 @@ namespace WorkSchedule
             for (int i=0; i<flattenDayForms.Length; i++)
             {
                 var date = IdxToDate(i);
-                flattenDayForms[i].SetDateLabel(date, SM.Month);
+                
                 var holiday = IsHoliday(date);
                 if(holiday.value)
                 {
@@ -96,7 +97,11 @@ namespace WorkSchedule
                 }else if(date.DayOfWeek == DayOfWeek.Saturday)
                 {
                     flattenDayForms[i].SetSaturday();
+                }else
+                {
+                    flattenDayForms[i].Clear();
                 }
+                flattenDayForms[i].SetDateLabel(date, SM.Month);
 
             }
 
@@ -116,6 +121,59 @@ namespace WorkSchedule
 
             }
             workerSettingForm.Dispose();
+        }
+
+        private void metroButton2_Click(object sender, EventArgs e)
+        {
+            var workerSettingForm = new CreateForm();
+            if (workerSettingForm.ShowDialog() == DialogResult.OK)
+            {
+                ScheduleManager.Initialize(workerSettingForm.Year, workerSettingForm.Month, null);
+                SM = ScheduleManager.Instance;
+                firstDay = new DateTime(SM.Year, SM.Month, 1);
+                firstDayofWeek = (int)firstDay.DayOfWeek;
+                holidayInfo = SM.HolidayInfo;
+                Clear();
+
+                SM.FindBestBlocks(workerSettingForm.firstDayOff);
+                BlocksListView.Items.Clear();
+                for(int i=0; i< SM.BestBlockList.Count; i++)
+                {
+                    BlocksListView.Items.Add(new ListViewItem($"시간표 {i+1}, {SM.BestBlockList[i].Loss}, {SM.BestBlockList[i].Score}, {SM.BestBlockList[i].WorkCount[0]}, {SM.BestBlockList[i].WorkCount[1]}, {SM.BestBlockList[i].WorkCount[2]}"));
+                }
+                BlocksListView.Refresh();
+                if (BlocksListView.Items.Count > 0)
+                {
+                    BlocksListView.Items[0].Selected = true;
+                }
+
+            }
+            workerSettingForm.Dispose();
+        }
+
+        
+
+        public void ShowSchedule(int idx)
+        {
+            var days = SM.BestBlockList[idx].Days;
+            foreach(var day in days)
+            {
+                int i = DateToIdx(day.Date);
+                flattenDayForms[i].SetWorkLabel(day);
+            }
+        }
+
+        
+
+        private void BlocksListView_ItemActivate(object sender, EventArgs e)
+        {
+            
+            if (BlocksListView.Items.Count <= 0)
+            {
+                return;
+            }
+            var idx = BlocksListView.Items.IndexOf(BlocksListView.SelectedItems[0]);
+            ShowSchedule(idx);
         }
     }
 }

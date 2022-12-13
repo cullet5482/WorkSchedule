@@ -9,7 +9,7 @@ using System.IO;
 using System.Net;
 using System.Net.Http;
 using System.Xml;
-
+using System.Diagnostics;
 
 namespace WorkSchedule
 {
@@ -18,6 +18,7 @@ namespace WorkSchedule
     public class ScheduleManager
     {
         Blocks blocks = null;
+        public BestBlockList BestBlockList { private set; get; }
         List<(DateTime date, string name)> holidayInfo = null;
         int month;
         int year;
@@ -92,6 +93,71 @@ namespace WorkSchedule
             return Instance;
         }
 
+        public ScheduleManager FindBestBlocks(int firstDayOff, int iter = 5)
+        {
+
+            /***
+             첫날 데이터 받음 -> BestFilledBlock Serach
+            -> 상위 n개만 구함 (가장 낮은 loss들중에서 best score를 기록한 것)
+            -> 다시 상위 n개에서 loss가 0이 될때까지 최대 k번 permute
+            -> 존재하지 않으면 error 메세지 출력 존재하면 ListView에 출력
+             ***/
+            var result = new BestBlockList(10);
+            
+            var leftHead = new Node(blocks.Clone());
+            var rightHead = new Node(blocks.Clone());
+
+            var firstLeftWorkTypes = new List<Day.WorkType>(new Day.WorkType[] { Day.WorkType.Day, Day.WorkType.Night });
+            var firstRightWorkTypes = new List<Day.WorkType>(new Day.WorkType[] { Day.WorkType.Night, Day.WorkType.Day });
+            firstLeftWorkTypes.Insert(firstDayOff, Day.WorkType.Dayoff);
+            firstRightWorkTypes.Insert(firstDayOff, Day.WorkType.Dayoff);
+
+            leftHead.Blocks.SetFirstDay(0, firstLeftWorkTypes.ToArray());
+            rightHead.Blocks.SetFirstDay(0, firstRightWorkTypes.ToArray());
+
+            var leftResult = Node.WaterTree(leftHead);
+            var rightResult = Node.WaterTree(rightHead);
+
+            Debug.WriteLine(rightResult[0] == rightResult[1]);
+            
+            var concatResult = leftResult.Concat(rightResult);
+            foreach(var node in concatResult)
+            {
+                result.Add(node.Blocks.Clone());
+            }
+
+            BestBlockList Step(BestBlockList blockList)
+            {
+                if (blockList.Loss == 0) return blockList;
+                var permuteResult = new BestBlockList(10);
+                foreach (var block in blockList)
+                {
+                    
+                    var count = 0;
+                    while (count < 5)
+                    {
+                        var permute = block.PermuteByBestWay();
+                        if (permute.Count == 0) break;
+                        foreach (var p in permute)
+                        {
+                            permuteResult.Add(p.Clone());
+                        }
+                        count += 1;
+                    }
+
+                }
+                return permuteResult;
+            }
+
+            for(int i=0; i<iter; i++)
+            {
+                result = Step(result);
+            }
+
+            BestBlockList = result;
+            return this;
+
+        }
 
         public static ScheduleManager Initialize(int year, int month, List<(DateTime date, string name)> holidayInfo = null)
         {
